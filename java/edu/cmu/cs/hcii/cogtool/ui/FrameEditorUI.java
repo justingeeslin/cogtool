@@ -1053,7 +1053,7 @@ public class FrameEditorUI extends ZoomableUI
 
     protected class WidgetTitleEditor extends SWTTextEditor
     {
-        public WidgetTitleEditor()
+        public WidgetTitleEditor(FrameEditorView view)
         {
             super(view.getEditor().getSWTEditorSubstrate(), LEFT_JUSTIFY);
         }
@@ -3923,7 +3923,7 @@ public class FrameEditorUI extends ZoomableUI
 
         // The editor control must be a child of an SWT object (the canvas)
         if (editor == null) {
-            editor = new WidgetTitleEditor();
+            editor = new WidgetTitleEditor(view);
         }
 
         cleanupFigureLabelEditor();

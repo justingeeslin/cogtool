@@ -166,7 +166,7 @@ public class DesignEditorUI extends ZoomableUI
 {
     protected class FrameNameEditor extends SWTTextEditor
     {
-        public FrameNameEditor()
+        public FrameNameEditor(DesignEditorView view)
         {
             super(view.getEditor().getSWTEditorSubstrate(), CENTER_TEXT);
         }
@@ -1804,7 +1804,7 @@ public class DesignEditorUI extends ZoomableUI
     {
         // The editor control must be a child of an SWT object (the canvas)
         if (editor == null) {
-            editor = new FrameNameEditor();
+            editor = new FrameNameEditor(view);
         }
 
         if (frameFigure != null) {
