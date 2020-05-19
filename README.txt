@@ -9,7 +9,7 @@ used today to baseline your current interface, or compare competitors'
 interfaces, and predict how much better your new designs will be.
 
 CogTool is free software, released under the FSF Lesser Gnu Public
-License. See LGPL.txt for details.
+License. See LICENSE.txt for details.
 
 The source code for CogTool is now (as of 9 December 2013) stored on
 GitHub. To access it clone:
