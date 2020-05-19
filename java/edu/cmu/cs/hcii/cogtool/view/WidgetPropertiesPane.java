@@ -169,7 +169,7 @@ public class WidgetPropertiesPane extends Composite
         @Override
         public boolean confirm(int focusRule)
         {
-            if (((FrameEditorView) view).selection.getWidgetSelectionCount() > 0)
+            if (((FrameEditorView) cogView).selection.getWidgetSelectionCount() > 0)
             {
                 return super.confirm(focusRule);
             }
@@ -201,7 +201,7 @@ public class WidgetPropertiesPane extends Composite
          */
         public IAttributed getTarget()
         {
-            return view.selection.getSelectedIWidgets()[0];
+            return cogView.selection.getSelectedIWidgets()[0];
         }
 
         @Override
@@ -210,7 +210,7 @@ public class WidgetPropertiesPane extends Composite
             Control source = (Control) evt.getSource();
 
             if (source.isEnabled()) {
-                if (view.selection.getWidgetSelectionCount() == 1) {
+                if (cogView.selection.getWidgetSelectionCount() == 1) {
                     IAttributed target = getTarget();
 
                     if (target == null) {
@@ -237,7 +237,7 @@ public class WidgetPropertiesPane extends Composite
                                                    attrName,
                                                    value);
 
-                    view.performAction(CogToolLID.SetAttribute, saprms, true);
+                    cogView.performAction(CogToolLID.SetAttribute, saprms, true);
                 }
             }
 
@@ -465,7 +465,7 @@ public class WidgetPropertiesPane extends Composite
     protected Combo contextMenuAction;
     protected Integer[] contextMenuActions;
 
-    protected FrameEditorView view;
+    protected static FrameEditorView cogView;
 
     public WidgetPropertiesPane(Composite parent,
                                 int style,
@@ -473,7 +473,7 @@ public class WidgetPropertiesPane extends Composite
     {
         super(parent, style);
 
-        view = frameView;
+        cogView = frameView;
 
         setLayout(new FormLayout());
 
@@ -492,7 +492,7 @@ public class WidgetPropertiesPane extends Composite
             new WidgetChangeText(this,
                                  SWT.SINGLE | SWT.BORDER,
                                  FrameEditorLID.ChangeNameProperty,
-                                 view);
+                                 cogView);
 
         widgetTitle = new DisplayLabel(this, SWT.NONE);
         widgetTitle.setText(DISPLAYED_LABEL);
@@ -501,7 +501,7 @@ public class WidgetPropertiesPane extends Composite
             new WidgetChangeText(this,
                                  SWT.SINGLE | SWT.BORDER,
                                  FrameEditorLID.ChangeTitleProperty,
-                                 view);
+                                 cogView);
 
         widgetAux = new DisplayLabel(this, SWT.NONE);
         widgetAux.setText(AUX_TEXT_LABEL);
@@ -510,7 +510,7 @@ public class WidgetPropertiesPane extends Composite
             new WidgetChangeText(this,
                                  SWT.SINGLE | SWT.BORDER,
                                  FrameEditorLID.ChangeAuxTextProperty,
-                                 view);
+                                 cogView);
 
         widgetType = new DisplayLabel(this, SWT.NONE);
         widgetType.setText(L10N.get("FE.WidgetTypeCaption", "Type") + ":");
@@ -525,7 +525,7 @@ public class WidgetPropertiesPane extends Composite
                                            "Render Widget Skin"));
         // Add listener to the rendered widget property
         widgetRender.addSelectionListener(
-                view.createWidgetChgHandler(FrameEditorLID.SetRenderSkin));
+                cogView.createWidgetChgHandler(FrameEditorLID.SetRenderSkin));
 
         remoteLabel = new DisplayLabel(this, SWT.NONE);
         remoteLabel.setText(L10N.get("FE.RemoteLabelCaption",
@@ -541,7 +541,7 @@ public class WidgetPropertiesPane extends Composite
             new WidgetChangeText(this,
                                  SWT.SINGLE | SWT.BORDER,
                                  FrameEditorLID.SetRemoteLabelText,
-                                 view);
+                                 cogView);
 
         remoteLabelOwner = new DisplayLabel(this, SWT.NONE);
         remoteLabelOwner.setText(L10N.get("FE.RemoteLabelOwnerCaption",
@@ -563,9 +563,9 @@ public class WidgetPropertiesPane extends Composite
 
                     FrameEditorUI.SetRemoteLabelTypeParms setTypeParms =
                         new FrameEditorUI.SetRemoteLabelTypeParms(widgetTypeChoices[selectedType],
-                                                    view.selection.getSelectedIWidgets()[0]);
+                                                    cogView.selection.getSelectedIWidgets()[0]);
 
-                    return view.performAction(FrameEditorLID.SetRemoteLabelType,
+                    return cogView.performAction(FrameEditorLID.SetRemoteLabelType,
                                               setTypeParms,
                                               true);
                 }
@@ -720,7 +720,7 @@ public class WidgetPropertiesPane extends Composite
                 @Override
                 public void widgetDefaultSelected(SelectionEvent evt)
                 {
-                    view.setSubmenuDelayAttr(view.selection.getSelectedIWidgets()[0],
+                    cogView.setSubmenuDelayAttr(cogView.selection.getSelectedIWidgets()[0],
                                              submenuDelay.getText());
                 }
             };
@@ -756,7 +756,7 @@ public class WidgetPropertiesPane extends Composite
                 {
                     if (OSUtils.MACOSX) {
                         if (evt.keyCode == SWT.KEYPAD_CR) {
-                            view.setSubmenuDelayAttr(view.selection.getSelectedIWidgets()[0],
+                            cogView.setSubmenuDelayAttr(cogView.selection.getSelectedIWidgets()[0],
                                                      submenuDelay.getText());
                         }
                     }

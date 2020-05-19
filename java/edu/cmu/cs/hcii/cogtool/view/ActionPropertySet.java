@@ -141,6 +141,7 @@ import edu.cmu.cs.hcii.cogtool.util.ListenerIdentifierMap;
 import edu.cmu.cs.hcii.cogtool.util.ManagedText;
 import edu.cmu.cs.hcii.cogtool.util.NamedObjectUtil;
 import edu.cmu.cs.hcii.cogtool.util.OSUtils;
+import edu.cmu.cs.hcii.cogtool.view.View;
 
 /**
  * Used for the property sheet
@@ -245,7 +246,7 @@ public class ActionPropertySet extends ActionSet
     protected Label secondsUnit;
     protected Label delayLabelLabel;
 
-    protected View view;
+    protected edu.cmu.cs.hcii.cogtool.view.View cogView;
     protected DesignEditorUI.EditTransitionParameters editTransitionParms;
 
     protected int currentLimitMode = ActionSet.USE_NONE;
@@ -311,7 +312,7 @@ public class ActionPropertySet extends ActionSet
         super(devTypes, parentSpace, vert);
 
         editTransitionParms = parms;
-        view = v;
+        cogView = v;
     }
 
     protected void resetVoice()
@@ -368,7 +369,7 @@ public class ActionPropertySet extends ActionSet
     @Override
     protected boolean performChangeWidgetAction()
     {
-        boolean b = view.performAction(DesignEditorLID.ChangeWidgetAction);
+        boolean b = cogView.performAction(DesignEditorLID.ChangeWidgetAction);
         enableSetDefaultButtons();
         return b;
     }
@@ -376,7 +377,7 @@ public class ActionPropertySet extends ActionSet
     @Override
     protected boolean performChangeDeviceAction()
     {
-        boolean b = view.performAction(DesignEditorLID.ChangeDeviceAction);
+        boolean b = cogView.performAction(DesignEditorLID.ChangeDeviceAction);
         enableSetDefaultButtons();
         return b;
     }
@@ -385,7 +386,7 @@ public class ActionPropertySet extends ActionSet
     {
         return new FramePropertiesPane(actionSettings,
                                        SWT.NONE,
-                                       view);
+                                       cogView);
     }
 
     @Override
@@ -1151,7 +1152,7 @@ public class ActionPropertySet extends ActionSet
                             choiceUseIndexes[currentSelection];
                         chosenActionType = currentSelection;
 
-                        view.performAction(DesignEditorLID.EditTransition,
+                        cogView.performAction(DesignEditorLID.EditTransition,
                                            editTransitionParms,
                                            true);
                     }
@@ -1169,7 +1170,7 @@ public class ActionPropertySet extends ActionSet
                 {
                     super.onFocus();
 
-                    view.getTransmuter().setLIDEnabledState();
+                    cogView.getTransmuter().setLIDEnabledState();
                 }
 
                 @Override
@@ -1182,7 +1183,7 @@ public class ActionPropertySet extends ActionSet
                         labelSelection = null;
                     }
 
-                    if (view.performAction(DesignEditorLID.ChangeDelay)) {
+                    if (cogView.performAction(DesignEditorLID.ChangeDelay)) {
                         if (labelSelection != null) {
                             setSelection(labelSelection);
                         }
@@ -1208,7 +1209,7 @@ public class ActionPropertySet extends ActionSet
                 {
                     super.onFocus();
 
-                    view.getTransmuter().setLIDEnabledState();
+                    cogView.getTransmuter().setLIDEnabledState();
                 }
 
                 @Override
@@ -1229,7 +1230,7 @@ public class ActionPropertySet extends ActionSet
                         delaySelection = null;
                     }
 
-                    if (view.performAction(DesignEditorLID.ChangeDelay)) {
+                    if (cogView.performAction(DesignEditorLID.ChangeDelay)) {
                         if (delaySelection != null) {
                             setSelection(delaySelection);
                         }
@@ -1327,7 +1328,7 @@ public class ActionPropertySet extends ActionSet
     {
         Composite c = new Composite(actionSettings, SWT.NONE);
         c.setLayout(new FormLayout());
-        ListenerIdentifierMap lidMap = view.getLIDMap();
+        ListenerIdentifierMap lidMap = cogView.getLIDMap();
 
         designNameLabel = new DisplayLabel(c, SWT.NONE);
         designNameLabel.setText(nameLabel);
@@ -1340,7 +1341,7 @@ public class ActionPropertySet extends ActionSet
                 {
                     super.onFocus();
 
-                    view.getTransmuter().setLIDEnabledState();
+//                    view.getTransmuter().setLIDEnabledState();
                 }
 
                 @Override
@@ -1351,7 +1352,7 @@ public class ActionPropertySet extends ActionSet
                     DesignEditorUI.DesignRenameParameters parms =
                         new DesignEditorUI.DesignRenameParameters(design, designName.getText());
 
-                    boolean changed = view.performAction(ProjectLID.RenameDesign,
+                    boolean changed = cogView.performAction(ProjectLID.RenameDesign,
                                                          parms,
                                                          true);
 
@@ -1383,7 +1384,7 @@ public class ActionPropertySet extends ActionSet
             @Override
             public void widgetSelected(SelectionEvent evt)
             {
-                view.performAction(DesignEditorLID.AddDesignDevices);
+                cogView.performAction(DesignEditorLID.AddDesignDevices);
             }
         });
         lidMap.addWidget(DesignEditorLID.AddDesignDevices,
@@ -1408,15 +1409,15 @@ public class ActionPropertySet extends ActionSet
                     switch (skinCombo.getSelectionIndex()) {
                         case 0:
                         default: {
-                            view.performAction(DesignEditorLID.SkinWireFrame);
+                            cogView.performAction(DesignEditorLID.SkinWireFrame);
                             break;
                         }
                         case 1: {
-                            view.performAction(DesignEditorLID.SkinMacOSX);
+                            cogView.performAction(DesignEditorLID.SkinMacOSX);
                             break;
                         }
                         case 2: {
-                            view.performAction(DesignEditorLID.SkinWinXP);
+                            cogView.performAction(DesignEditorLID.SkinWinXP);
                             break;
                         }
                     }
